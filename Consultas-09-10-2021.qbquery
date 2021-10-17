@@ -1,0 +1,23 @@
+﻿USE bd_turismo;
+
+show tableS;
+
+select * from pedido;
+
+select * from equipo_implemento;
+
+
+drop table Equi_imple_existente;
+
+create table Equi_imple_existente(
+ idEqui_imple_existente int not null primary key auto_increment,
+  estad  varchar(20) not null,
+  idequipo_implemento int not null,
+  idpedido int not null,
+  foreign key fk_equipo_implemento(idequipo_implemento) references equipo_implemento(idequipo_implemento),
+  foreign key fk_pedido(idpedido) references pedido(idpedido)
+  );
+
+select *,(select count(*) from Equi_imple_existente where idequipo_implemento=e.idequipo_implemento and idpedido=1) Cantidad
+from equipo_implemento e;
+
