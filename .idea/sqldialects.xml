@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/controllers/Objetos/ObjEquipo_implemento.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/controllers/Objetos/ObjMarca.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/controllers/Objetos/ObjProducto.php" dialect="GenericSQL" />
+    <file url="PROJECT" dialect="MySQL" />
+  </component>
+</project>

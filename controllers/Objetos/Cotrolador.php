@@ -29,8 +29,8 @@
 </body>
 </html>
 <?php
- final class control{	 
-	 public function CabeceraPagina(){
+ final class control{
+	 public static function CabeceraPagina(){
       echo'<meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Comercial System</title>
       <!-- Tell the browser to be responsive to screen width -->
       <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -48,11 +48,11 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">';      	  	 
 	 }
 	 
-	 public function CrearMenu(){	 
+	 public static function CrearMenu(){
 	  echo'<ul class="sidebar-menu" data-widget="tree">
         <li class="header" style="color:white;text-align:center;font-weight:bold;">Menu de Opciones</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active" ><a href="../index.php" style="background-color:green"><i class="fa fa-key"></i><span>Inicio</span></a></li>		
+        <li class="active" ><a href="index.php" style="background-color:green"><i class="fa fa-key"></i><span>Inicio</span></a></li>		
         <!--<li><a href="#"><i class="fa fa-link"></i> <span>Tablas</span></a></li> -->
         <li class="treeview">
           <a href="#"><i class="fa fa-id-card-o"></i> <span>Tablas</span>
@@ -63,6 +63,8 @@
           <ul class="treeview-menu">
             <li><a href="views/marca.php">Marcas</a></li>
             <li><a href="views/equipo_implemento.php">Equipo_Implemeto</a></li>
+            <li><a href="views/paquete_Turistico.php">Paquete Turístico</a></li>
+            <li><a href="views/paquete_viaje.php">Paquete de Viaje</a></li>
           </ul>
         </li>
 		<li class="treeview">
@@ -74,11 +76,13 @@
           <ul class="treeview-menu">
             <li><a href="views/InventarioInicial.php">Inventario Inicial</a></li>
             <li><a href="views/EntregaEquipoViaje.php">Entrega equipo para viaje</a></li>
+            <li><a href="paquete_Turistico.php">Paquete Turístico</a></li>
+            <li><a href="paquete_viaje.php">Paquete de Viaje</a></li>
           </ul>
         </li>		
       </ul>';
 	 }
-	 public function CrearMenu1(){	 
+	 public static function CrearMenu1(){
 	  echo'<ul class="sidebar-menu" data-widget="tree">
         <li class="header" style="color:white;text-align:center;font-weight:bold;">Menu de Opciones</li>
         <!-- Optionally, you can add icons to the links -->
@@ -93,6 +97,8 @@
           <ul class="treeview-menu">
             <li><a href="marca.php">views/Marcas</a></li>
             <li><a href="equipo_implemento.php">Equipo_Implemeto</a></li>
+            <li><a href="paquete_Turistico.php">Paquete Turístico</a></li>
+            <li><a href="paquete_viaje.php">Paquete de Viaje</a></li>
           </ul>
         </li>
 		<li class="treeview">
@@ -109,7 +115,7 @@
       </ul>';
 	 }
 	 
-	 public function pieDePagina(){	 
+	 public static function pieDePagina(){
 	  echo'<footer class="main-footer"><!-- To the right --><div class="pull-right hidden-xs"><!--Anything you want -->
 	  Preguntas al administrado</div><!-- Default to the left --><strong>Copyright &copy;';	
 	  echo date('Y');

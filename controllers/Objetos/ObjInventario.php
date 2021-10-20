@@ -7,7 +7,7 @@
 	echo "Insercion correcta";
    }
    public function Estado_InventarioInicial(){
-	include_once('Objetos/Base.php');
+	include_once('Base.php');
     $sql="select observ from pedido where idpedido=1";	 	
 	$bas=new Base();$base=$bas->connect();$query = $base->query($sql);    
     if($valores = mysqli_fetch_array($query)){ 

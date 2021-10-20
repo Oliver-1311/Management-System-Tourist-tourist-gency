@@ -1,6 +1,7 @@
 <?php    
  include_once('Objetos/ObjMarca.php');include_once('Objetos/ObjEquipo_implemento.php');
- include_once('Objetos/ObjInventario.php');include_once('Objetos/ObjViaje.php');$ev=$_POST['ev'];   
+ include_once('Objetos/ObjInventario.php');include_once('Objetos/ObjViaje.php');$ev=$_POST['ev'];
+ include_once ('Objetos/ObjPaqueteturistico.php');include_once 'Objetos/ObjPaqueteViaje.php';
  
  switch ($ev){
   case 0:{ //Acceso al Sistema       
@@ -11,7 +12,7 @@
    Marca::MostrarMarca1($_POST['mrc']);break;      
   }   
  case 2: {//Seleccionar Marca
-   Marca::DevolverMarca($_POST['idmc']);break;  
+   Marca::DevolverMarca($_POST['idmc']);break;
   }
   case 3: {//Crear la Marca
    Marca::CrearMarca($_POST['mrc']);break;
@@ -48,7 +49,16 @@
    Equipo_implemento::SeleccionarEquipo_Implemento($_POST['idequ'],$_POST['ctd'],$_POST['op'],$_POST['idvje']);break;  
   }  */
   case 17:{//LlenarMarcas para el producto
-   Marca::DevolverMarcas();break;      
+   Marca::DevolverMarcas();break;
+  }
+  case 18:{
+   PaqueteTuristico::DevolverPaqueteTuristico();break;
+  }
+  case 19:{
+   PaqueteTuristico::MostrarPaquete_turistico($_POST['eqimp'],$_POST['opc']);break;
+  }
+  case 20:{
+   ObjPaqueteViaje::MostrarPaquete_viaje($_POST['vje'],$_POST['opc']);break;
   }
  }  
 ?>

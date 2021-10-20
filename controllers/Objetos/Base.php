@@ -3,7 +3,7 @@
      private $host;private $db;private $user;private $password;private $charset;
      public function __construct(){
       $this->host="localhost";$this->db="bd_Turismo";
-      $this->user="root";$this->password="";$this->charset="utf8mb4";
+      $this->user="root";$this->password="12345678";$this->charset="utf8mb4";
      }
 	 
      function connect(){

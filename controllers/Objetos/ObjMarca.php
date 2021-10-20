@@ -22,7 +22,7 @@
    }
    
    public static function MostrarMarca1($mr){    
-    include_once('Objetos/Base.php');     
+    include_once('Base.php');
 	$sql="select * from marca where nommrc like '%".$mr."%' order by 2;";		
 	$bas=new Base();$base=$bas->connect();    
 	$dto="";$cont=1;
@@ -40,8 +40,8 @@
 	echo $dto;
    }
    
-   public function CrearMarca($mrc){   
-    include_once('Objetos/Base.php');     	
+   public static function CrearMarca($mrc){
+    include_once('Base.php');
 	$res="";$sql="select * from marca where nommrc='".$mrc."';";		
 	$bas=new Base();$base=$bas->connect();$query = $base->query($sql);
     if ($valores = mysqli_fetch_array($query)) {	  
@@ -53,7 +53,7 @@
 	 else{echo "Error en la BD";}
 	}		
    }
-   public function EditarMarca($idmr,$mrc){   
+   public static function EditarMarca($idmr,$mrc){
     include_once('Objetos/Base.php');     	
     $sql="select * from marca where nommrc='".$mrc."' and idmarca<>'".$idmr."';";          
 	$bas=new Base();$base=$bas->connect();$query = $base->query($sql);	
@@ -84,7 +84,7 @@
 	$json_string = json_encode($marcas);echo $json_string;		
    }
    
-   public function EliminarMarca($idmr,$mrc){   
+   public static function EliminarMarca($idmr,$mrc){
     include_once('./Funciones/Conexion.php');   	 
 	$sql="select * from producto where idmarca='".$idmr."';";$query = $base->query($sql);
     if ($valores = mysqli_fetch_array($query))	  
