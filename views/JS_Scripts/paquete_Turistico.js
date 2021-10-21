@@ -2,40 +2,44 @@
 url="../controllers/Procesador.php";iden="";
 
 $(document).ready(function (e) {
+    LLenarTipoPaquetesTuristicos();
+    document.getElementById('cbEstadoPaquete').selectedIndex = -1;
     Mostrar("","");
     $("#txmrcBuscar").keyup(function (e) {Mostrar("",$(this).val());});
 
     $('#btCrear').click(function(e){
         e.preventDefault();
-        if($("#txmarca").val().trim().length===0){
-            swal("Aviso","Faltan datos de la Marca","info");$("#txmarca").focus();
-        }
-        else{
-            if(iden.length===0){
-                $.ajax({url: url, type: 'POST',data: "ev=3" + "&mrc=" + $("#txmarca").val().trim(),
-                    success: function (msg) {
-                        $("#txmarca").val("");
-                        swal("Creación",msg.trim(),"info");
-                        Mostrar("","");
-                    }, error: function (xml, msg) {}
-                });
-            }
-            else{
-                $.ajax({url: url,type: 'POST',data: {ev:4,idmc:iden,mrc:$('#txmarca').val()},
-                    success: function (msg) {
-                        Mostrar("","");swal("Aviso",msg.trim(),"info");
-                        iden="";$('#txmarca').val('');$('#btCrear').text('Grabar');
-                    }, error: function (xml, msg) {}
-                });
-            }
-        }
+      if($('#txnombreP').val().trim().length===0){
+          swal('Aviso', 'Falta ingresar el nombre del paquete','info')
+      }else{
+          if($('#txmontoP').val().trim().length===0){
+              swal('Aviso', 'Falta ingresar el monto','info')
+          }else{
+              if($('#cbEstadoPaquete option:selected').text().trim().length===0){
+                  swal('Aviso', 'Falta seleccionar el estado del paquete','info')
+              }else{
+                  if($('#cbTipoPaquete option:selected').text().trim().length===0){
+                      swal('Aviso', 'Falta seleccionar el Tipo de Paquete','info')
+                  }else{
+                      $.ajax({url: url, type: 'POST',data: {ev:23,nmbrT:$("#txnombreP").val(),montoT:$("#txmontoP").val(),
+                           estadoT:$("#cbEstadoPaquete option:selected").text(),TipPaq:$("#cbTipoPaquete option:selected").index()+1},
+                          success: function (msg) {
+                              swal("Creación",msg.trim(),"info");$("#txnombreP").val("");$("#txmontoP").val("");
+                              document.getElementById('cbEstadoPaquete').selectedIndex=-1;
+                              document.getElementById('cbTipoPaquete').selectedIndex=-1;Mostrar("","");
+                          }, error: function (xml, msg) {}
+                      });
+                  }
+              }
+          }
+      }
     });
 });
 function Mostrar(id, dt) {
     var id = "";
     $.ajax({
         url: url, type: 'POST',
-        data: {ev:19, eqimp: dt, opc: 0},
+        data: {ev:19, paqTu: dt, opc: 0},
         success: function (msg) {
             $("#tablita").html(msg);
         },
@@ -54,4 +58,14 @@ function Seleccionamarca(id){
             $("#txmarca").focus()
         }, error: function (xml, msg) {}
     });
+}
+function LLenarTipoPaquetesTuristicos() {
+    $("#cbTipoPaquete").empty();
+    $.post(url, {ev:21}, function (data) {
+        data.forEach(function (tipoPaquete) {
+            $('#cbTipoPaquete').append($('<option>', {value: tipoPaquete.id, text: tipoPaquete.nombre}));
+        });
+        document.getElementById('cbTipoPaquete').selectedIndex = -1;
+        $("#txdescripcion").focus();
+    }, "json");
 }

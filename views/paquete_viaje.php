@@ -139,16 +139,16 @@ include_once('../controllers/Objetos/Cotrolador.php'); ?>
                             <form role="form">
                                 <div class="form-group">
                                     <label style='color:blue'>Descripción*:</label>
-                                    <input type="text" class="form-control" id="txdescripcion"
-                                           placeholder="Descripción....">
+                                    <input type="text" class="form-control" id="txdescripcionV"
+                                           placeholder="Descripción...." required>
                                 </div>
                                 <div class="form-group">
                                     <label style='color:blue'>Fecha :</label>
-                                    <input type="date" class="form-control" id="txFecha" placeholder="Precio Sugerido">
+                                    <input type="date" class="form-control" id="txFechaV" name="txFechaV" placeholder="Precio Sugerido" required>
                                 </div>
                                 <div class="form-group">
                                     <label style='color:blue'>Hora:</label>
-                                    <input type="time" class="form-control" id="txHoraViaje" name="txHoraViaje" >
+                                    <input type="time" class="form-control" id="txHoraViaje" name="txHoraViaje" required>
                                 </div>
 
                                 <div class="row">
@@ -159,7 +159,7 @@ include_once('../controllers/Objetos/Cotrolador.php'); ?>
 
                                     <div class="form-group col-md-1"><br><br>
                                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                                                id="btnMarcasio">
+                                                id="btnPaqTuristico">
                                             ...
                                         </button>
                                     </div>
@@ -173,7 +173,7 @@ include_once('../controllers/Objetos/Cotrolador.php'); ?>
                                 </div>
                                 <div class="row">
                                     <button type="submit" class="btn btn-info" style='position: relative; left: 30px;'
-                                            id='btnCrearASD'  accesskey="g"><u>G</u>uardar
+                                            id='btnCrearPaqViaje'  accesskey="g"><u>G</u>uardar
                                     </button>
                                 </div>
                             </form>
@@ -338,82 +338,7 @@ include_once('../controllers/Objetos/Cotrolador.php'); ?>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
-<script>
-    /*****************Variables Globales******************/
-    url = "../controllers/Procesador.php";
-    iden = "";
-    $(document).ready(function (e) {
-        LLenarPaquetesTuristicos();
-        Mostrar("", "");
-        document.getElementById('cbEstadoPaquete').selectedIndex = -1;
-        $('#txequiBuscar').keyup(function (e) {
-            Mostrar("", $(this).val());
-        });
-
-        $('#btnCrearASD').click(function (e) {
-            alert("asdf");
-        });
-        $('#btnMarcasio').click(function () {
-
-        });
-
-        $('#btnSave').click(function () {
-            if ($('#txtmrc').val().trim().length > 0) {
-                $.ajax({
-                    url: url, type: 'POST', data: "ev=3" + "&mrc=" + $("#txtmrc").val().trim(),
-                    success: function (msg) {
-                        $("#txtmrc").val("");
-                        swal("Creación", msg.trim(), "info");
-                        LLenarPaquetesTuristicos();
-                    }, error: function (xml, msg) {
-                    }
-                });
-                $('#myModal').modal('hide');
-            }
-        });
-    });
-
-    function SeleccionaEquipo(id) {
-        iden = id;
-        $.post(url, {ev: 7, idequi: id}, function (data) {
-            $('#btCrear').html('G<u>r</u>abar Cambios');
-            $('#btCrear').attr("accesskey", "r");
-            $("#txdescripcion").val(data.desc);
-            $("#txprecio").val(data.preref);
-            $("#cbtipo").val(data.tipo);
-            $("#cbPaqueteTuristico").val(data.idmarca);
-            $("#txdescripcion").focus();
-        }, "json");
-    }
-
-
-    function Mostrar(id, dt) {
-        var id = "";
-        $.ajax({
-            url: url, type: 'POST',
-            data: {ev: 20, eqimp: dt, opc: 0},
-            success: function (msg) {
-                $("#tablita").html(msg);
-            },
-            error: function (xml, msg) {
-                swal("Aviso", msg.trim(), "info");
-            }
-        });
-    }
-
-    function LLenarPaquetesTuristicos() {
-        $("#cbPaqueteTuristico").empty();
-        $.post(url, {ev: 18}, function (data) {
-            data.forEach(function (paqueteturistico) {
-                $('#cbPaqueteTuristico').append($('<option>', {value: paqueteturistico.id, text: paqueteturistico.nombre}));
-            });
-            document.getElementById('cbPaqueteTuristico').selectedIndex = -1;
-            $("#txdescripcion").focus();
-        }, "json");
-    }
-
-
-</script>
+<script src="JS_Scripts/paquete_viaje.js"></script>
 
 
 </body>

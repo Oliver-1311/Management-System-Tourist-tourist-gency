@@ -4,15 +4,48 @@ iden = "";
 $(document).ready(function (e) {
     LLenarPaquetesTuristicos();
     Mostrar("", "");
-    document.getElementById('cbEstadoPaquete').selectedIndex = -1;
+    document.getElementById('cbEstadoViaje').selectedIndex = -1;
     $('#txequiBuscar').keyup(function (e) {
         Mostrar("", $(this).val());
     });
 
-    $('#btnCrearASD').click(function (e) {
+    $('#btnCrearPaqViaje').click(function (e) {
+        e.preventDefault();
+        if($('#txdescripcionV').val().trim().length===0){
+            swal('Aviso', 'Falta  ingresar la descripción','info');$('#txdescripcionV').focus();
+        }else{
+            if($('#txFechaV').val().trim().length===0){
+                swal('Aviso', 'Falta ingresar la fecha de viaje','info');$('#txFechaV').focus();
+            }else{
+                if($('#txHoraViaje').val().trim().length===0){
+                    swal('Aviso', 'Falta ingresar la hora de viaje','info');$('#txHoraViaje').focus();
+                }else{
+                    if($('#cbPaqueteTuristico option:selected').text().trim().length===0){
+                        swal('Aviso', 'Falta seleccionar el paquete turísticon','info');$('#cbPaqueteTuristico').focus();
+                    }else{
+                        if($('#cbEstadoViaje option:selected').text().trim().length===0){
+                            swal('Aviso', 'Falta seleccionar el estado de viaje','info');$('#cbPaqueteTuristico').focus();
+                        }else{
+
+                                $.ajax({url: url, type: 'POST',data: {ev:22,dsc:$("#txdescripcionV").val(),fechaV:$("#txFechaV").val(),
+                                        horaV:$("#txHoraViaje").val(),PaqT:$("#cbPaqueteTuristico option:selected").index()+1,Estd:$("#cbEstadoViaje option:selected").text()},
+                                    success: function (msg) {
+                                        swal("Creación",msg.trim(),"info");$("#txdescripcionV").val("");$("#txFechaV").val("");$("#txHoraViaje").val("");
+                                        document.getElementById('cbPaqueteTuristico').selectedIndex=-1;
+                                        document.getElementById('cbEstadoViaje').selectedIndex=-1;Mostrar("","");
+                                    }, error: function (xml, msg) {}
+                                });
+
+                        }
+                    }
+                }
+            }
+        }
 
     });
-    $('#btnMarcasio').click(function () {
+
+
+    $('#btnPaqTuristico').click(function () {
 
     });
 
@@ -50,7 +83,7 @@ function Mostrar(id, dt) {
     var id = "";
     $.ajax({
         url: url, type: 'POST',
-        data: {ev: 20, eqimp: dt, opc: 0},
+        data: {ev: 20, vje: dt, opc: 0},
         success: function (msg) {
             $("#tablita").html(msg);
         },
@@ -70,4 +103,3 @@ function LLenarPaquetesTuristicos() {
         $("#txdescripcion").focus();
     }, "json");
 }
-

@@ -196,12 +196,12 @@ desired effect
                                 <div class="form-group">
                                     <label for="exampleInputDescripci1">Nombre*:</label>
                                     <!--<input type="text" class="form-control" id="txmarca" placeholder="Ingrese la marca" ng-model="facultad"> -->
-                                    <input type="text" class="form-control" id="txnombre"
+                                    <input type="text" class="form-control" id="txnombreP"
                                            placeholder="Ingrese el nombre">
                                 </div>
                                 <div class="form-group">
                                     <label style='color:blue'>monto:</label>
-                                    <input type="number" class="form-control" id="txmonto" placeholder="monto">
+                                    <input type="number" class="form-control" id="txmontoP" placeholder="monto">
                                 </div>
                                 <div class="form-group">
                                     <label style='color:blue'>Estado de Paquete</label>

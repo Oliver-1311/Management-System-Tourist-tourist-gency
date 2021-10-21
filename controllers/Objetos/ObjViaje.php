@@ -1,13 +1,13 @@
 <?php 
  final class Viaje{        
-   public static function Mostrarviaje($vje,$opc){    
+   public static function Mostrarviaje($viajes,$opc){
     include_once('Base.php');$bas=new Base();$base=$bas->connect();$dto="";$cont=1;
     switch($opc){
 	 case 0:
 	  $sql="select v.idviaje_paquete ID,(select descripcion from paquete_turistico where idpaquete_turistico
 	  =v.idpaquete_turistico) Paquete,date_format(v.fecha,'%d-%m-%Y') Fecha_Viaje from viaje_paquete v 
 	  where (select descripcion from paquete_turistico where idpaquete_turistico=v.idpaquete_turistico) 
-	  like '%".$vje."%' order by 2;";$query = $base->query($sql);	  
+	  like '%".$viajes."%' order by 2;";$query = $base->query($sql);
 	  while ($valores = mysqli_fetch_array($query)) {	  
 	   $dto=$dto."<tr style='text-align:center;font-size:14px;color:black;' data-id='".$valores[0]."'><td>".$cont."</td><td>"
 	   .$valores[1]."</td><td>".$valores[2]."</td><td class='td-actions'><a href='javascript:;'class='btn btn-info  btn-small' 
@@ -17,7 +17,7 @@
 	  }
       break;	 	  
 	 case 1:
-	  $sql="select count(*) from seleccionviaje where idviaje_paquete=".$vje.";";
+	  $sql="select count(*) from seleccionviaje where idviaje_paquete=".$viajes.";";
 	  $query = $base->query($sql);	  
 	  while ($valores = mysqli_fetch_array($query)) {	  
 	   $dto=$dto."".$valores[0];	
@@ -27,7 +27,7 @@
 	echo $dto;
    }
    
-   public function CrearViaje($vje){   
+   public function CrearViaje($viajes){
     include_once('Objetos/Base.php');     	
 	$res="";$sql="select * from marca where nommrc='".$mrc."';";		
 	$bas=new Base();$base=$bas->connect();$query = $base->query($sql);
@@ -40,7 +40,7 @@
 	 else{echo "Error en la BD";}
 	}		
    }
-   public function EditarViaje($idvje,$vje){   
+   public function EditarViaje($idvje,$viajes){
     include_once('Objetos/Base.php');     	
     $sql="select * from marca where nommrc='".$mrc."' and idmarca<>'".$idmr."';";          
 	$bas=new Base();$base=$bas->connect();$query = $base->query($sql);	
@@ -70,7 +70,7 @@
 	}
 	$json_string = json_encode($marcas);echo $json_string;		
    }   
-   public function EliminarViaje($idvje,$vje){   
+   public function EliminarViaje($idvje,$viajes){
     include_once('./Funciones/Conexion.php');   	 
 	$sql="select * from producto where idmarca='".$idmr."';";$query = $base->query($sql);
     if ($valores = mysqli_fetch_array($query))	  

@@ -1,8 +1,8 @@
 <?php    
  include_once('Objetos/ObjMarca.php');include_once('Objetos/ObjEquipo_implemento.php');
- include_once('Objetos/ObjInventario.php');include_once('Objetos/ObjViaje.php');$ev=$_POST['ev'];
+ include_once('Objetos/ObjInventario.php');include_once('Objetos/ObjViaje.php');
  include_once ('Objetos/ObjPaqueteturistico.php');include_once 'Objetos/ObjPaqueteViaje.php';
- 
+$ev=$_POST['ev'];
  switch ($ev){
   case 0:{ //Acceso al Sistema       
    $rtd=Acceso::Acceder($_POST['usu'],$_POST['cl']);echo $rtd;
@@ -55,10 +55,20 @@
    PaqueteTuristico::DevolverPaqueteTuristico();break;
   }
   case 19:{
-   PaqueteTuristico::MostrarPaquete_turistico($_POST['eqimp'],$_POST['opc']);break;
+   PaqueteTuristico::MostrarPaquete_turistico($_POST['paqTu'],$_POST['opc']);break;
   }
   case 20:{
    ObjPaqueteViaje::MostrarPaquete_viaje($_POST['vje'],$_POST['opc']);break;
   }
- }  
+  case 21:{
+   PaqueteTuristico::DevolverTipoPaqueteTuristico();break;
+  }
+  case 22:{
+   ObjPaqueteViaje::CrearPaqueteViaje($_POST['dsc'],$_POST['fechaV'],$_POST['horaV'],$_POST['PaqT'],$_POST['Estd']);break;
+  }
+  case 23:{
+   PaqueteTuristico::CrearPaqueteTuristico($_POST['nmbrT'],$_POST['montoT'],$_POST['estadoT'],$_POST['TipPaq']);
+  }
+ }
+
 ?>

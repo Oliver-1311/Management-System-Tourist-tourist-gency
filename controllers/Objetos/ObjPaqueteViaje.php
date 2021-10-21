@@ -65,4 +65,16 @@ class ObjPaqueteViaje
         $bas=new Base();$base=$bas->connect();$query = $base->query($sql);
         echo "Selección Correcta";
     }
+    public static function CrearPaqueteViaje($nomViaje,$fechaViaje,$horaViaje,$TpaqTur,$estadoV){
+        include_once('Base.php');
+        $sql="select * from viaje_paquete where descrip='".$nomViaje."';";
+        $bas=new Base();$base=$bas->connect();$query = $base->query($sql);
+        if(mysqli_fetch_array($query)){
+            echo "El paquete de viaje '".$nomViaje."' ya existe";
+        }else{
+            $resultInsert = mysqli_query($base,"insert into viaje_paquete(fecha, hora, estado, idpaquete_turistico, descrip) values('".$fechaViaje."','".$horaViaje."','".$estadoV."',".$TpaqTur.",'".$nomViaje."')");
+            if($resultInsert){echo "El paquete de viaje '".$nomViaje."' se ingreso correctamente";}
+            else{echo "Error en la BD";}
+        }
+    }
 }

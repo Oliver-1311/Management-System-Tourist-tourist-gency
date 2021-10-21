@@ -11,6 +11,15 @@ class PaqueteTuristico
         }
         $json_string = json_encode($paquetes);echo $json_string;
     }
+    public static function DevolverTipoPaqueteTuristico()
+    {
+        include_once('Objetos/Base.php');$bas=new Base();$base=$bas->connect();
+        $query = $base->query("select * from tipo_paqueteT ;");
+        while($valores = mysqli_fetch_array($query)){
+            $paquetes[] = array('id'=> $valores[0], 'nombre'=> $valores[1]);
+        }
+        $json_string = json_encode($paquetes);echo $json_string;
+    }
 
     public static function MostrarPaquete_turistico($eq_imp,$opc){
         include_once('Base.php');
@@ -20,7 +29,7 @@ class PaqueteTuristico
             case 0:
                 while ($valores = mysqli_fetch_array($query)) {
                     $dto=$dto."<tr style='font-size:14px;color:black;'><td style='text-align:center'>".$cont."</td><td>"
-                        .$valores[1]."</td><td style='text-align:center'>".$valores[2]."</td><td style='text-align:center'>".$valores[3]."</td><td class='td-actions'>
+                        .$valores[1]."</td><td style='text-align:center'>".$valores[2]."</td><td style='text-align:center'>".$valores[3]."</td><td style='text-align:center'>".$valores[4]."</td><td class='td-actions'>
 	   <a href='javascript:;'class='btn btn-info  btn-small' onclick=SeleccionaEquipo(".$valores[0].") title=
 	   'Editar Equipo marca'><img src='../Imagenes/Edit.png' width=70% ></a><a href='javascript:;'class='btn btn-warning 
 	   btn-small' onclick=EliminaEquipo(".$valores[0].") title='Elimina Equipo_Marca'>
@@ -74,5 +83,17 @@ class PaqueteTuristico
         $sql="call St_equi_imple_existente('".$id."','".$ctd."','".$op."','".$idvje."')";
         $bas=new Base();$base=$bas->connect();$query = $base->query($sql);
         echo "Selección Correcta";
+    }
+    public static function CrearPaqueteTuristico($nomTur,$montoTur,$estadoTur, $TipPaq){
+        include_once('Base.php');
+        $sql="select * from paquete_turistico where descripcion='".$nomTur."';";
+        $bas=new Base();$base=$bas->connect();$query = $base->query($sql);
+        if(mysqli_fetch_array($query)){
+            echo "El paquete de viaje '".$nomTur."' ya existe";
+        }else{
+            $resultInsert = mysqli_query($base,"insert into paquete_turistico(descripcion, precio, estado, idtipo_paquete) values('".$nomTur."',".$montoTur.",'".$estadoTur."',".$TipPaq.");");
+            if($resultInsert){echo "El paquete de Turístico '".$nomTur."' se ingreso correctamente";}
+            else{echo "Error en la BD";}
+        }
     }
 }
